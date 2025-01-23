@@ -1,6 +1,5 @@
 package com.audiobooks.podcasts.domain.model
 
-
 data class Podcast(
     val id: String,
     val title: String,
@@ -26,7 +25,8 @@ data class Podcast(
     val listenScore: Int,
     val listenScoreGlobalRank: String,
     val hasGuestInterviews: Boolean,
-    val lookingFor: LookingFor,
-    val socialLinks: SocialLinks,
+    val lookingFor: LookingFor?,
+    val socialLinks: SocialLinks?,
     val isFavourite: Boolean = false // Default to false
 )
+

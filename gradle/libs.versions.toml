@@ -16,6 +16,7 @@ hilt = "2.55" # Hilt
 coil = "2.4.0" # Coil for Compose
 okhttp = "4.12.0" # Okhttp logging
 ksp = "2.1.0-1.0.29"
+hiltNavigationCompose = "1.2.0" # Hilt Navigation Compose
 
 [libraries]
 # Core Libraries
@@ -36,6 +37,8 @@ androidx-material3 = { group = "androidx.compose.material3", name = "material3",
 # Hilt
 hilt-android = { group = "com.google.dagger", name = "hilt-android", version.ref = "hilt" }
 hilt-compiler = { group = "com.google.dagger", name = "hilt-compiler", version.ref = "hilt" }
+hilt-navigation-compose = { group = "androidx.hilt", name = "hilt-navigation-compose", version.ref = "hiltNavigationCompose" }
+
 
 # Room
 room-runtime = { group = "androidx.room", name = "room-runtime", version.ref = "room" }

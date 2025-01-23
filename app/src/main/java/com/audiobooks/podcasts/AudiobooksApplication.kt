@@ -1,5 +1,7 @@
 package com.audiobooks.podcasts
 
 import android.app.Application
+import dagger.hilt.android.HiltAndroidApp
 
-class AudiobooksApplication : Application() 
+@HiltAndroidApp
+class AudiobooksApplication : Application()

@@ -54,23 +54,4 @@ class PodcastListViewModel @Inject constructor(
             }
         }
     }
-
-    fun toggleFavourite(podcast: Podcast) {
-        viewModelScope.launch {
-            try {
-                podcastUseCases.toggleFavouriteUseCase(podcast)
-
-                // Update the favorite status locally
-                val updatedPodcasts = loadedPodcasts.map {
-                    if (it.id == podcast.id) it.copy(isFavourite = !podcast.isFavourite) else it
-                }
-                loadedPodcasts.clear()
-                loadedPodcasts.addAll(updatedPodcasts)
-
-                _uiState.value = ResultResponse.Success(loadedPodcasts)
-            } catch (e: Exception) {
-                _uiState.value = ResultResponse.Error(e.localizedMessage ?: "An error occurred")
-            }
-        }
-    }
 }

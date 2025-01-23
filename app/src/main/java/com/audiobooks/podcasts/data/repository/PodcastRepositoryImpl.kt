@@ -34,10 +34,10 @@ class PodcastRepositoryImpl @Inject constructor(
                     emit(ResultResponse.Success(updatedData))
                 }
             } catch (e: Exception) {
-                emit(ResultResponse.Error(e.localizedMessage)) // Emit error if API call fails
+                emit(ResultResponse.Error(e.localizedMessage?:"An unknown error occurred")) // Emit error if API call fails
             }
         }.catch { e ->
-            emit(ResultResponse.Error(e.localizedMessage))
+            emit(ResultResponse.Error(e.localizedMessage?:"An unknown error occurred"))
         }
     }
 

@@ -13,7 +13,7 @@ class MainActivity : ComponentActivity() {
         super.onCreate(savedInstanceState)
         setContent {
             PodcastsTheme {
-                val navController = rememberNavController()
+               // val navController = rememberNavController()
                 PodcastListScreen(
                     onPodcastClick = { podcast ->
                         // Handle navigation or podcast click

@@ -32,8 +32,7 @@ fun PodcastListScreen(
 ) {
     val uiState by viewModel.uiState.collectAsState()
     val isLoading by viewModel.isLoading.collectAsState()
-
-    PodcastsTheme {
+    
         Scaffold(
             topBar = {
                 TopAppBar(
@@ -64,7 +63,7 @@ fun PodcastListScreen(
                 }
             }
         }
-    }
+
 }
 
 @Composable

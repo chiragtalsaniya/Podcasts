@@ -36,8 +36,13 @@ android {
     kotlinOptions {
         jvmTarget = "11"
     }
+
     buildFeatures {
         compose = true
+    }
+
+    hilt {
+        enableAggregatingTask = false
     }
 
     // Add Room schema location for KSP
@@ -71,6 +76,9 @@ dependencies {
     // Retrofit
     implementation(libs.retrofit)
     implementation(libs.retrofit.gson)
+
+    // OkHttp
+    implementation(libs.okhttp.logging)
 
     // Coil (Image Loading)
     implementation(libs.coil.compose)

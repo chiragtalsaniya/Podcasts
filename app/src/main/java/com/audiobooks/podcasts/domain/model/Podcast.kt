@@ -27,6 +27,6 @@ data class Podcast(
     val hasGuestInterviews: Boolean,
     val lookingFor: LookingFor?,
     val socialLinks: SocialLinks?,
-    val isFavourite: Boolean = false // Default to false
+    var isFavourite: Boolean = false // Default to false
 )
 

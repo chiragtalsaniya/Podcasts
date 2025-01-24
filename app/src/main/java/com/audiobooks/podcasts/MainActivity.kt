@@ -1,8 +1,14 @@
 package com.audiobooks.podcasts
+
 import android.os.Bundle
 import androidx.activity.ComponentActivity
 import androidx.activity.compose.setContent
+import androidx.hilt.navigation.compose.hiltViewModel
+import androidx.navigation.compose.NavHost
+import androidx.navigation.compose.composable
 import androidx.navigation.compose.rememberNavController
+import com.audiobooks.podcasts.ui.podastdetail.PodcastDetailScreen
+import com.audiobooks.podcasts.ui.podastdetail.SharedPodcastViewModel
 import com.audiobooks.podcasts.ui.PodcastListScreen
 import com.audiobooks.podcasts.ui.theme.PodcastsTheme
 import dagger.hilt.android.AndroidEntryPoint
@@ -13,13 +19,26 @@ class MainActivity : ComponentActivity() {
         super.onCreate(savedInstanceState)
         setContent {
             PodcastsTheme {
-               // val navController = rememberNavController()
-                PodcastListScreen(
-                    onPodcastClick = { podcast ->
-                        // Handle navigation or podcast click
-                        // For now, just log or handle this action
+                val navController = rememberNavController()
+                val sharedPodcastViewModel: SharedPodcastViewModel = hiltViewModel()
+
+                NavHost(
+                    navController = navController, startDestination = "podcast_list"
+                ) {
+                    composable("podcast_list") {
+                        PodcastListScreen(onPodcastClick = { podcast ->
+                            sharedPodcastViewModel.selectPodcast(podcast)
+                            navController.navigate("podcast_detail")
+                        })
                     }
-                )
+                    composable("podcast_detail") {
+                        PodcastDetailScreen(
+                            viewModel = sharedPodcastViewModel, onBack = {
+                                navController.popBackStack()
+                            })
+
+                    }
+                }
             }
         }
     }

@@ -21,7 +21,6 @@ import androidx.hilt.navigation.compose.hiltViewModel
 import coil.compose.rememberAsyncImagePainter
 import com.audiobooks.podcasts.R
 import com.audiobooks.podcasts.domain.model.Podcast
-import com.audiobooks.podcasts.ui.theme.PodcastsTheme
 import com.audiobooks.podcasts.utils.ResultResponse
 
 @OptIn(ExperimentalMaterial3Api::class)
@@ -179,7 +178,7 @@ fun PodcastItem(
                         maxLines = 1,
                         overflow = TextOverflow.Ellipsis
                     )
-                    if (!podcast.isFavourite) {
+                    if (podcast.isFavourite) {
                         Text(
                             text = stringResource(R.string.favourited),
                             style = MaterialTheme.typography.bodyMedium.copy(color = MaterialTheme.colorScheme.primary),

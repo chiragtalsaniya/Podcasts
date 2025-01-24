@@ -2,18 +2,22 @@ package com.audiobooks.podcasts.ui
 
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
+import com.audiobooks.podcasts.data.local.dao.PodcastDao
+import com.audiobooks.podcasts.data.mappers.toDomain
 import com.audiobooks.podcasts.domain.model.Podcast
 import com.audiobooks.podcasts.domain.usecase.PodcastUseCases
 import com.audiobooks.podcasts.utils.ResultResponse
 import dagger.hilt.android.lifecycle.HiltViewModel
 import kotlinx.coroutines.flow.MutableStateFlow
 import kotlinx.coroutines.flow.StateFlow
+import kotlinx.coroutines.flow.map
 import kotlinx.coroutines.launch
 import javax.inject.Inject
 
 @HiltViewModel
 class PodcastListViewModel @Inject constructor(
-    private val podcastUseCases: PodcastUseCases
+    private val podcastUseCases: PodcastUseCases,
+    private val podcastDao: PodcastDao
 ) : ViewModel() {
 
     private val _uiState = MutableStateFlow<ResultResponse<List<Podcast>>>(ResultResponse.Loading)
@@ -27,8 +31,29 @@ class PodcastListViewModel @Inject constructor(
     private var hasNextPage = true // Indicates if more pages are available
 
     init {
+        observeDatabaseChanges()
         loadPodcasts()
     }
+
+    /**
+     * Observe database changes and update the `isFavourite` status in the existing list.
+     */
+    private fun observeDatabaseChanges() {
+        viewModelScope.launch {
+            podcastDao.getAllPodcasts()
+                .map { entities -> entities.map { it.toDomain() } }
+                .collect { updatedPodcasts ->
+                    // Update the `isFavourite` status in the current list
+                    loadedPodcasts.forEach { podcast ->
+                        val updatedPodcast = updatedPodcasts.find { it.id == podcast.id }
+                        podcast.isFavourite = updatedPodcast?.isFavourite ?: podcast.isFavourite
+                    }
+                    _uiState.value = ResultResponse.Success(loadedPodcasts)
+                }
+        }
+    }
+
+
 
     fun loadPodcasts() {
         if (_isLoading.value || !hasNextPage) return // Avoid multiple or unnecessary requests

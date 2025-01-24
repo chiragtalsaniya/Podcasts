@@ -13,6 +13,9 @@ interface PodcastDao {
     @Query("SELECT * FROM podcasts WHERE isFavourite = 1")
     fun getFavouritePodcasts(): Flow<List<PodcastEntity>>
 
+    @Query("SELECT * FROM podcasts WHERE id = :podcastId LIMIT 1")
+    suspend fun getPodcastById(podcastId: String): PodcastEntity?
+
     @Insert(onConflict = OnConflictStrategy.REPLACE)
     suspend fun insertPodcasts(podcasts: List<PodcastEntity>)
 

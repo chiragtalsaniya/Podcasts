@@ -179,7 +179,7 @@ fun PodcastItem(
                         maxLines = 1,
                         overflow = TextOverflow.Ellipsis
                     )
-                    if (!podcast.isFavourite) {
+                    if (podcast.isFavourite) {
                         Text(
                             text = stringResource(R.string.favourited),
                             style = MaterialTheme.typography.bodyMedium.copy(color = MaterialTheme.colorScheme.primary),

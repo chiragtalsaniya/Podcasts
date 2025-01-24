@@ -22,7 +22,6 @@ class MainActivity : ComponentActivity() {
             PodcastsTheme {
                 val navController = rememberNavController()
                 val sharedPodcastViewModel: SharedPodcastViewModel = hiltViewModel()
-                val podcastListViewModel: PodcastListViewModel = hiltViewModel()
 
                 NavHost(
                     navController = navController, startDestination = "podcast_list"

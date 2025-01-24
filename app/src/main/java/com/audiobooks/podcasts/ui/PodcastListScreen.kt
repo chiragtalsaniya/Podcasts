@@ -21,7 +21,6 @@ import androidx.hilt.navigation.compose.hiltViewModel
 import coil.compose.rememberAsyncImagePainter
 import com.audiobooks.podcasts.R
 import com.audiobooks.podcasts.domain.model.Podcast
-import com.audiobooks.podcasts.ui.theme.PodcastsTheme
 import com.audiobooks.podcasts.utils.ResultResponse
 
 @OptIn(ExperimentalMaterial3Api::class)

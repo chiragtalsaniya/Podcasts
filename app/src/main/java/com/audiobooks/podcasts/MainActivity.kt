@@ -10,7 +10,6 @@ import androidx.navigation.compose.rememberNavController
 import com.audiobooks.podcasts.ui.podastdetail.PodcastDetailScreen
 import com.audiobooks.podcasts.ui.podastdetail.SharedPodcastViewModel
 import com.audiobooks.podcasts.ui.PodcastListScreen
-import com.audiobooks.podcasts.ui.PodcastListViewModel
 import com.audiobooks.podcasts.ui.theme.PodcastsTheme
 import dagger.hilt.android.AndroidEntryPoint
 

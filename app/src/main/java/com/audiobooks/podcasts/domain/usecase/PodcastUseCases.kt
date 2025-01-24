@@ -1,6 +1,8 @@
 package com.audiobooks.podcasts.domain.usecase
 
-data class PodcastUseCases(
+import javax.inject.Inject
+
+data class PodcastUseCases @Inject constructor(
     val getPodcastsUseCase: GetPodcastsUseCase,
     val toggleFavouriteUseCase: ToggleFavouriteUseCase
 )

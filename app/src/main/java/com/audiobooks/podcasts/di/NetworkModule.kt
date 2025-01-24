@@ -17,7 +17,7 @@ import javax.inject.Singleton
 @InstallIn(SingletonComponent::class)
 object NetworkModule {
 
-    private const val BASE_URL = "https://www.listennotes.com/api/v2/"
+    private const val BASE_URL = "https://listen-api-test.listennotes.com/api/v2/"
 
     @Provides
     @Singleton
@@ -31,6 +31,7 @@ object NetworkModule {
         val loggingInterceptor = HttpLoggingInterceptor().apply {
             level = HttpLoggingInterceptor.Level.BODY
         }
+
         return OkHttpClient.Builder()
             .addInterceptor(loggingInterceptor)
             .build()

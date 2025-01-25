@@ -1,4 +1,4 @@
-package com.audiobooks.podcasts.ui.podastdetail
+package com.audiobooks.podcasts.ui.podcast.detail
 import androidx.compose.animation.animateColorAsState
 import androidx.compose.foundation.Image
 import androidx.compose.foundation.clickable
@@ -19,16 +19,18 @@ import androidx.compose.ui.text.style.TextAlign
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
 import androidx.compose.ui.platform.LocalConfiguration
+import androidx.compose.ui.tooling.preview.Preview
 import coil.compose.rememberAsyncImagePainter
+import com.audiobooks.podcasts.domain.model.Podcast
 import kotlinx.coroutines.launch
 
 @OptIn(ExperimentalMaterial3Api::class)
 @Composable
 fun PodcastDetailScreen(
-    viewModel: SharedPodcastViewModel,
-    onBack: () -> Unit
+    viewModel: SharedPodcastViewModel? = null, // Optional ViewModel for production
+    podcast: Podcast? = viewModel?.selectedPodcast?.collectAsState()?.value, // Use podcast directly if provided
+    onBack: () -> Unit = {}
 ) {
-    val podcast by viewModel.selectedPodcast.collectAsState()
     val screenWidth = LocalConfiguration.current.screenWidthDp.dp
     val snackbarHostState = remember { SnackbarHostState() }
     val scope = rememberCoroutineScope()
@@ -119,7 +121,7 @@ fun PodcastDetailScreen(
 
                         Button(
                             onClick = {
-                                viewModel.toggleFavourite()
+                                viewModel?.toggleFavourite()
                                 scope.launch {
                                     snackbarHostState.currentSnackbarData?.dismiss() // Dismiss the current Snackbar if any
                                     snackbarHostState.showSnackbar(
@@ -159,4 +161,43 @@ fun PodcastDetailScreen(
             }
         }
     }
+}
+
+
+
+@Preview(showBackground = true)
+@Composable
+fun PodcastDetailScreenPreview() {
+    PodcastDetailScreen(
+        podcast = Podcast(
+            id = "1",
+            title = "Masters of Scale",
+            description = "Award-winning business advice from Silicon Valley and beyond. Iconic CEOs share their strategies to scale businesses successfully.",
+            publisher = "WaitWhat",
+            thumbnail = "https://cdn-images-3.listennotes.com/podcasts/masters-of-scale-waitwhat-pC8IU6xO9LK-mYoV0CUyxTD.300x300.jpg",
+            totalEpisodes = 456,
+            image = "",
+            isFavourite = true,
+            rss = null,
+            website = null,
+            genreIds = emptyList(),
+            language = "English",
+            country = "United States",
+            explicitContent = false,
+            listennotesUrl = "",
+            audioLengthSec = 0,
+            latestPubDateMs = 0L,
+            earliestPubDateMs = 0L,
+            hasSponsors = false,
+            email = null,
+            latestEpisodeId = "",
+            isClaimed = false,
+            listenScore = 0,
+            listenScoreGlobalRank = "",
+            hasGuestInterviews = false,
+            lookingFor = null,
+            socialLinks = null
+        ),
+        onBack = { /* Handle back navigation */ }
+    )
 }

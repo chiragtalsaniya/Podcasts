@@ -42,6 +42,6 @@ fun Podcast.toEntity(): PodcastEntity {
         description = description,
         publisher = publisher,
         thumbnail = thumbnail,
-        isFavourite = isFavourite
+        isFavourite = isFavourite,
     )
 }

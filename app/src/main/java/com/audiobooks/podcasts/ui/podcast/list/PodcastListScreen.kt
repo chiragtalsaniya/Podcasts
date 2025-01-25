@@ -1,4 +1,4 @@
-package com.audiobooks.podcasts.ui
+package com.audiobooks.podcasts.ui.podcast.list
 
 import androidx.compose.foundation.Image
 import androidx.compose.foundation.clickable
@@ -16,6 +16,7 @@ import androidx.compose.ui.draw.clip
 import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.text.style.TextOverflow
+import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import androidx.hilt.navigation.compose.hiltViewModel
 import coil.compose.rememberAsyncImagePainter
@@ -31,7 +32,7 @@ fun PodcastListScreen(
 ) {
     val uiState by viewModel.uiState.collectAsState()
     val isLoading by viewModel.isLoading.collectAsState()
-    
+
         Scaffold(
             topBar = {
                 TopAppBar(
@@ -65,15 +66,28 @@ fun PodcastListScreen(
 
 }
 
+@Preview(showBackground = true)
 @Composable
-fun LoadingIndicator() {
+fun LoadingIndicator(message: String = stringResource(R.string.loading_podcasts)) {
     Box(
         contentAlignment = Alignment.Center,
         modifier = Modifier.fillMaxSize()
     ) {
-        CircularProgressIndicator(color = MaterialTheme.colorScheme.primary)
+        Column(
+            horizontalAlignment = Alignment.CenterHorizontally,
+            verticalArrangement = Arrangement.Center
+        ) {
+            CircularProgressIndicator(color = MaterialTheme.colorScheme.primary)
+            Spacer(modifier = Modifier.height(16.dp))
+            Text(
+                text = message,
+                style = MaterialTheme.typography.bodyMedium,
+                color = MaterialTheme.colorScheme.onBackground
+            )
+        }
     }
 }
+
 
 @Composable
 fun ErrorMessage(message: String) {
@@ -194,4 +208,79 @@ fun PodcastItem(
             color = MaterialTheme.colorScheme.onSurface.copy(alpha = 0.1f)
         )
     }
+}
+
+@Preview(showBackground = true)
+@Composable
+fun ErrorMessagePreview() {
+    ErrorMessage(message = "Failed to load podcasts. Please try again.")
+}
+@Preview(showBackground = true)
+@Composable
+fun PodcastListPreview() {
+    PodcastList(
+        podcasts = listOf(
+            Podcast(
+                id = "1",
+                title = "Masters of Scale",
+                description = "Award-winning business advice from Silicon Valley and beyond.",
+                publisher = "WaitWhat",
+                thumbnail = "https://cdn-images-3.listennotes.com/podcasts/masters-of-scale-waitwhat-pC8IU6xO9LK-mYoV0CUyxTD.300x300.jpg",
+                totalEpisodes = 456,
+                image = "https://cdn-images-3.listennotes.com/podcasts/masters-of-scale-waitwhat-w5Tb9hPCs-8-mYoV0CUyxTD.1400x1400.jpg",
+                isFavourite = true,
+                rss = null,
+                website = "http://www.mastersofscale.com",
+                genreIds = emptyList(),
+                language = "English",
+                country = "United States",
+                explicitContent = false,
+                listennotesUrl = "https://www.listennotes.com/c/d863da7f921e435fb35f512b54e774d6/",
+                audioLengthSec = 2018,
+                latestPubDateMs = 1713430800000,
+                earliestPubDateMs = 1492543297432,
+                hasSponsors = false,
+                email = "hello@mastersofscale.com",
+                latestEpisodeId = "a8841be2af14462aa6054ec020faed01",
+                isClaimed = false,
+                listenScore = 71,
+                listenScoreGlobalRank = "0.05%",
+                hasGuestInterviews = true,
+                lookingFor = null,
+                socialLinks = null
+            ),
+            Podcast(
+                id = "2",
+                title = "The Smart Passive Income Online Business and Blogging Podcast",
+                description = "Pat Flynn reveals all of his online business strategies.",
+                publisher = "Pat Flynn",
+                thumbnail = "https://cdn-images-3.listennotes.com/podcasts/the-smart-passive-income-online-business-sF24owQHYWy-NDa6-ySp9kw.300x300.jpg",
+                totalEpisodes = 790,
+                image = "https://cdn-images-3.listennotes.com/podcasts/the-smart-passive-income-online-business-jN-aR6qdYuo-NDa6-ySp9kw.1400x1400.jpg",
+                isFavourite = false,
+                rss = null,
+                website = "https://art19.com/shows/smart-passive-income-podcast",
+                genreIds = emptyList(),
+                language = "English",
+                country = "United States",
+                explicitContent = false,
+                listennotesUrl = "https://www.listennotes.com/c/499661f3589f42aaa1532673e0e0aedf/",
+                audioLengthSec = 2424,
+                latestPubDateMs = 1713337200000,
+                earliestPubDateMs = 1279551600767,
+                hasSponsors = true,
+                email = "podcasts@teamspi.com",
+                latestEpisodeId = "c8a8e517dba345cab1c80e36d7e4e18c",
+                isClaimed = false,
+                listenScore = 70,
+                listenScoreGlobalRank = "0.05%",
+                hasGuestInterviews = true,
+                lookingFor = null,
+                socialLinks = null
+            )
+        ),
+        onPodcastClick = { /* Handle click */ },
+        loadMorePodcasts = { /* Trigger loading more podcasts */ },
+        isLoading = false // Simulate non-loading state
+    )
 }

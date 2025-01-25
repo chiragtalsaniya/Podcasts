@@ -1,4 +1,4 @@
-package com.audiobooks.podcasts.ui.podastdetail
+package com.audiobooks.podcasts.ui.podcast.detail
 
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope

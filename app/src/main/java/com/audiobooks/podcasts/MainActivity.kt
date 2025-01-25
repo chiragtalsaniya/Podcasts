@@ -7,9 +7,9 @@ import androidx.hilt.navigation.compose.hiltViewModel
 import androidx.navigation.compose.NavHost
 import androidx.navigation.compose.composable
 import androidx.navigation.compose.rememberNavController
-import com.audiobooks.podcasts.ui.podastdetail.PodcastDetailScreen
-import com.audiobooks.podcasts.ui.podastdetail.SharedPodcastViewModel
-import com.audiobooks.podcasts.ui.PodcastListScreen
+import com.audiobooks.podcasts.ui.podcast.detail.PodcastDetailScreen
+import com.audiobooks.podcasts.ui.podcast.detail.SharedPodcastViewModel
+import com.audiobooks.podcasts.ui.podcast.list.PodcastListScreen
 import com.audiobooks.podcasts.ui.theme.PodcastsTheme
 import dagger.hilt.android.AndroidEntryPoint
 

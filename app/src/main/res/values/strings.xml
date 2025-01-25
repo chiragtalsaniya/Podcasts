@@ -1,4 +1,5 @@
 <resources>
     <string name="app_name">Podcasts</string>
     <string name="favourited">Favourited</string>
+    <string name="loading_podcasts">Loading Podcasts…</string>
 </resources>

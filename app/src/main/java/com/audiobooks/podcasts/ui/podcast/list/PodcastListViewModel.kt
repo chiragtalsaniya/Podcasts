@@ -1,4 +1,4 @@
-package com.audiobooks.podcasts.ui
+package com.audiobooks.podcasts.ui.podcast.list
 
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
@@ -31,7 +31,6 @@ class PodcastListViewModel @Inject constructor(
     private var hasNextPage = true // Indicates if more pages are available
 
     init {
-        observeDatabaseChanges()
         loadPodcasts()
     }
 
@@ -49,6 +48,7 @@ class PodcastListViewModel @Inject constructor(
                         podcast.isFavourite = updatedPodcast?.isFavourite ?: podcast.isFavourite
                     }
                     _uiState.value = ResultResponse.Success(loadedPodcasts)
+
                 }
         }
     }
@@ -65,7 +65,7 @@ class PodcastListViewModel @Inject constructor(
                     is ResultResponse.Success -> {
                         loadedPodcasts.addAll(result.data)
                         _uiState.value = ResultResponse.Success(loadedPodcasts)
-
+                        observeDatabaseChanges()
                         // Update pagination flags
                         hasNextPage = result.data.isNotEmpty() // Check if there are items to load
                         if (hasNextPage) currentPage++

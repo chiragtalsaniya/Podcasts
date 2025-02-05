@@ -1,6 +1,5 @@
 package com.audiobooks.podcasts.ui.podcast.list
 
-import android.util.Log
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
 import androidx.paging.PagingData
@@ -11,6 +10,7 @@ import com.audiobooks.podcasts.data.mappers.toDomain
 import com.audiobooks.podcasts.domain.model.Podcast
 import com.audiobooks.podcasts.domain.usecase.PodcastUseCases
 import dagger.hilt.android.lifecycle.HiltViewModel
+import kotlinx.coroutines.ExperimentalCoroutinesApi
 import kotlinx.coroutines.flow.Flow
 import kotlinx.coroutines.flow.MutableStateFlow
 import kotlinx.coroutines.flow.flatMapLatest
@@ -27,6 +27,7 @@ class PodcastListViewModel @Inject constructor(
     // Trigger paging refresh when database changes
     private val _databaseUpdateTrigger = MutableStateFlow(Unit)
 
+    @OptIn(ExperimentalCoroutinesApi::class)
     val podcasts: Flow<PagingData<Podcast>> = _databaseUpdateTrigger.flatMapLatest {
         podcastUseCases.getPodcastsUseCase()
             .map { pagingData -> pagingData.map { updatePodcastFavouriteStatus(it) } }

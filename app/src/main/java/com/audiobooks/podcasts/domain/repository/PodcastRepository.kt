@@ -1,10 +1,9 @@
 package com.audiobooks.podcasts.domain.repository
 
+import androidx.paging.PagingSource
 import com.audiobooks.podcasts.domain.model.Podcast
-import com.audiobooks.podcasts.utils.ResultResponse
-import kotlinx.coroutines.flow.Flow
 
 interface PodcastRepository {
-    suspend fun getPodcasts(page: Int): Flow<ResultResponse<List<Podcast>>>
+    fun getPodcastPagingSource(): PagingSource<Int, Podcast>
     suspend fun toggleFavourite(podcast: Podcast)
 }

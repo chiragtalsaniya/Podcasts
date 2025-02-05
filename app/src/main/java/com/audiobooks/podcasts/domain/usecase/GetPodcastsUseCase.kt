@@ -1,20 +1,24 @@
 package com.audiobooks.podcasts.domain.usecase
 
+import androidx.paging.Pager
+import androidx.paging.PagingConfig
+import androidx.paging.PagingData
 import com.audiobooks.podcasts.domain.model.Podcast
 import com.audiobooks.podcasts.domain.repository.PodcastRepository
-import com.audiobooks.podcasts.utils.ResultResponse
 import kotlinx.coroutines.flow.Flow
-import kotlinx.coroutines.flow.catch
 import javax.inject.Inject
 
 class GetPodcastsUseCase @Inject constructor(
-    private val repository: PodcastRepository
+    private val podcastRepository: PodcastRepository
 ) {
-    suspend operator fun invoke(page: Int): Flow<ResultResponse<List<Podcast>>> {
-        return repository.getPodcasts(page)
-            .catch { e ->
-                emit(ResultResponse.Error(e.message ?: "Failed to load podcasts"))
-            }
+    operator fun invoke(): Flow<PagingData<Podcast>> {
+        return Pager(
+            config = PagingConfig(
+                pageSize = 20,  // Loads 20 items per page
+                prefetchDistance = 5, // Prefetch when 5 items before the end
+                enablePlaceholders = false
+            ),
+            pagingSourceFactory = { podcastRepository.getPodcastPagingSource() }
+        ).flow
     }
 }
-

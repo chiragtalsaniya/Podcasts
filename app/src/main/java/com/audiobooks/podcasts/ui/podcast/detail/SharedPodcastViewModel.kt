@@ -15,31 +15,27 @@ class SharedPodcastViewModel @Inject constructor(
     private val podcastUseCases: PodcastUseCases
 ) : ViewModel() {
 
-
-    // State to hold the currently selected podcast
     private val _selectedPodcast = MutableStateFlow<Podcast?>(null)
     val selectedPodcast: StateFlow<Podcast?> = _selectedPodcast
 
-    // Function to update the selected podcast
     fun selectPodcast(podcast: Podcast) {
         _selectedPodcast.value = podcast
     }
 
-    // Function to toggle the favourite status of the podcast
+    /**
+     * Toggles the favourite status and persists it to Room Database
+     */
     fun toggleFavourite() {
         val currentPodcast = _selectedPodcast.value
         if (currentPodcast != null) {
-            // Update the local state
             val updatedPodcast = currentPodcast.copy(isFavourite = !currentPodcast.isFavourite)
             _selectedPodcast.value = updatedPodcast
 
-            // Persist the change using the use case
             viewModelScope.launch {
                 try {
                     podcastUseCases.toggleFavouriteUseCase(updatedPodcast)
                 } catch (e: Exception) {
-                    // Handle any errors (e.g., rollback the local change if necessary)
-                    _selectedPodcast.value = currentPodcast
+                    _selectedPodcast.value = currentPodcast  // Rollback in case of error
                 }
             }
         }

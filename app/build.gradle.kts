@@ -97,4 +97,9 @@ dependencies {
     // Debugging
     debugImplementation(libs.androidx.ui.tooling)
     debugImplementation(libs.androidx.ui.test.manifest)
+
+    // Paging 3
+    implementation(libs.paging.runtime)
+    implementation(libs.paging.compose)
+
 }

@@ -17,6 +17,10 @@ coil = "2.4.0" # Coil for Compose
 okhttp = "4.12.0" # Okhttp logging
 ksp = "2.1.0-1.0.29"
 hiltNavigationCompose = "1.2.0" # Hilt Navigation Compose
+paging-runtime = "3.3.5"
+paging-compose = "3.3.5"
+
+
 
 [libraries]
 # Core Libraries
@@ -57,6 +61,11 @@ coil-compose = { group = "io.coil-kt", name = "coil-compose", version.ref = "coi
 
 # Kotlin Coroutines
 kotlinx-coroutines = { group = "org.jetbrains.kotlinx", name = "kotlinx-coroutines-android", version.ref = "coroutines" }
+
+#Paging 3
+paging-runtime = { group = "androidx.paging", name = "paging-runtime", version.ref = "paging-runtime" }
+paging-compose = { group = "androidx.paging", name = "paging-compose", version.ref = "paging-compose" }
+
 
 # Testing
 junit = { group = "junit", name = "junit", version.ref = "junit" }
